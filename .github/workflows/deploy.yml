@@ -1,0 +1,35 @@
+# 📁 .github/workflows/deploy.yml
+name: Deploy React to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # 🎯 只要你向 main 分支 push 代码，就会触发自动部署
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # Vite 打包产出的文件夹名称
+          branch: gh-pages # 自动化脚本会将打包后的网页丢进这个专属分支
