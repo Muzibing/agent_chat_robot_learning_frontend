@@ -50,7 +50,7 @@ export function useChat() {
       const response = await fetch(`${BACKEND_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg.content, history: messages }),
+        body: JSON.stringify({ message: userMsg.content, history: updatedHistory }),
       });
 
       if (!response.ok) throw new Error(`服务器异常: ${response.status}`);
