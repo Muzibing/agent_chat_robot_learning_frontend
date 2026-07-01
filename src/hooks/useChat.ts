@@ -46,7 +46,10 @@ export function useChat() {
     setLoading(true);
 
     try {
-      const BACKEND_URL = "http://localhost:8000"; 
+    // 智能环境判定：如果是本地运行就连 localhost，如果是外网（GitHub Pages）就连穿透网址
+      const BACKEND_URL = import.meta.env.DEV 
+      ? "http://localhost:8000" 
+      : "https://eight-parts-camp.loca.lt";
       const response = await fetch(`${BACKEND_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
